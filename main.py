@@ -215,7 +215,6 @@ async def api_probe():
         write_event(event)
 
 async def main():
-    asyncio.create_task(api_probe())
     await client.start(token)
 
 asyncio.run(main())
