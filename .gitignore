@@ -1,0 +1,7 @@
+__pycache__/
+*.py[cod]
+.venv/
+.env
+event_log.jsonl
+.idea/
+*.log
