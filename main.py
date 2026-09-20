@@ -37,10 +37,26 @@ def now_utc():
 
 @client.event
 async def on_ready():
+    event = {
+        "event" : "OBSERVER_READY",
+        "observed_at" : now_utc(),
+    }
+
+    write_event(event)
     print(f"Logged in as {client.user}")
     print("Witnyas is connected.")
-    print(f"Observing channel: {channel_id}")
+    print(f"Witnessing channel: {channel_id}")
     print(f"Writing events to: {log_file}")
+
+@client.event
+async def on_disconnect():
+    event = {
+        "event": "OBSERVER_DISCONNECT",
+        "observed_at": now_utc(),
+    }
+
+    write_event(event)
+    print("Discord Gateway disconnected.")
 
 @client.event
 async def on_message(message):
