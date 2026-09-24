@@ -135,6 +135,21 @@ async def on_raw_message_delete(payload):
     write_event(event)
 
 @client.event
+async def on_raw_bulk_message_delete(payload):
+    if payload.channel_id != channel_id:
+        return
+
+    event = {
+        "event": "MESSAGE_DELETE_BULK",
+        "observed_at": datetime.now(timezone.utc).isoformat(),
+        "channel_id": payload.channel_id,
+        "guild_id": getattr(payload, "guild_id", None),
+        "message_ids": [str(message_id) for message_id in payload.message_ids],
+    }
+
+    write_event(event)
+
+@client.event
 async def on_raw_message_edit(payload):
     if payload.channel_id != channel_id:
         return
